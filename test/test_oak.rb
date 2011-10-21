@@ -10,6 +10,22 @@ class TestOak < Test::Unit::TestCase
     clear_temp_file
   end
 
+  def test_check_cfg
+    FileUtils.cd @oak.destination_root do
+      @oak.check_cfg
+      assert_equal('config/config.yml', File.binread('.gitignore'))
+      assert_equal('c1cae0f52a3ef8efa369a127c63bd6ede539a4089fd952b33199100a6769c8455ab4969f2eefaf1ebcbe0208bd57531204c77f41f715207f961e7e45f139f4e7', @oak.secret_token)
+    end
+  end
+
+  def test_create_config_on_deploy
+    FileUtils.cd @oak.destination_root do
+      @oak.check_cfg
+      @oak.create_config_on_deploy
+      assert_equal(@oak.secret_token, File.binread('config/config.yml'))
+    end
+  end
+
   def test_setup
     @oak.setup
     FileUtils.chdir @oak.destination_root do
@@ -19,7 +35,7 @@ class TestOak < Test::Unit::TestCase
       end
       
       branch = `git symbolic-ref -q HEAD`.chomp
-      assert_equal('refs/heads/deploy', branch)
+      assert_equal('refs/heads/master', branch)
     end
   end
 end
