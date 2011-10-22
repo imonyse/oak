@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "oak"
   gem.homepage = "http://github.com/imonyse/oak"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Oak is a tool that helps making your newly created rails app open source ready.}
+  gem.description = %Q{When pushing your rails app to a public repository, it is often neccessary to find a way protecting you secret token and other private information. Oak helps you on these tasks and assumes you use git as the version control system}
   gem.email = "imonyse@gmail.com"
   gem.authors = ["Huang Wei"]
   # dependencies defined in Gemfile

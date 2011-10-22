@@ -4,13 +4,9 @@ class Oak < Thor
   include Thor::Actions
   attr_reader :secret_token
 
-  def initialize(working_directory)
-    super
-    self.destination_root += '/' + working_directory
-  end
-
   desc "setup oak", "Set current rails app source open ready"
-  def setup
+  def setup(working_directory = '.')
+    self.destination_root = working_directory
     FileUtils.chdir destination_root do
       check_cfg
       dummy_config 
@@ -41,6 +37,20 @@ class Oak < Thor
         end
       end
 
+      # make 'config/database.yml' globally ignored
+      global_ignore_file = File.expand_path('~/.gitignore')
+      if File.exist? global_ignore_file
+        ignored = File.binread global_ignore_file
+        if !ignored.include?('config/database.yml')
+          append_to_file(global_ignore_file, 'config/database.yml')
+        end
+      else
+        File.open(global_ignore_file, 'w') do |f|
+          f.write 'config/database.yml'
+        end
+      end
+      `git config --global core.excludesfile ~/.gitignore`
+
       # append config/config.yml to .gitignore if not already in 
       File.open('.gitignore') do |f|
         f.each_line do |l|
@@ -66,7 +76,7 @@ class Oak < Thor
       File.open('config/config.example.yml', 'w') do |f|
         f.write "secret_token = 'c1cae0f52a3ef8efa369a127c63bd6ede539a4089fd952b33199100a6769c8455ab4969f2eefaf1ebcbe0208bd57531204c77f41f715207f961e7e45f139f4e7'"
       end
-      prepend_to_file 'config/application.rb', "require 'yaml'\n APP_CONFIG = YAML.load(File.read(File.expand_path('../config.yml', __FILE__)))"
+      prepend_to_file 'config/application.rb', "require 'yaml'\nAPP_CONFIG = YAML.load(File.read(File.expand_path('../config.yml', __FILE__)))"
 
       # simply copy database.yml to database.example.yml
       File.open('config/database.example.yml', 'w') do |f|
@@ -87,7 +97,7 @@ class Oak < Thor
 
     def create_config_on_deploy
       File.open('config/config.yml', 'w') do |f|
-        f.write secret_token
+        f.write 'secret_token = ' + secret_token
       end
 
       # remove 'config/config.yml' from .gitignore on deploy branch
@@ -96,6 +106,22 @@ class Oak < Thor
       File.open('.gitignore', 'w') do |f|
         f.write ignored
       end
+
+      # add checkout hook for switching from 'deploy' to 'master'
+      File.open('.git/hooks/post-checkout', 'w') do |f|
+        f.write <<-EOS
+#!/bin/bash
+
+branch_name=$(git symbolic-ref -q HEAD)
+branch_name=${branch_name##refs/heads/}
+
+if [ "$branch_name" = master -a -e "config/config.example.yml" ]; then
+  cp config/config.example.yml config/config.yml
+  echo "cp config/config.example.yml config/config.yml"
+fi
+        EOS
+      end
+      `chmod +x .git/hooks/post-checkout`
     end
     
     def commit_deploy_branch

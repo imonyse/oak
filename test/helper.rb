@@ -17,13 +17,13 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'oak'
 
 class Test::Unit::TestCase
-  def create_temp_file
-    @test_tmp = 'test_tmp'
+  def create_temp_file(oak_ref)
+    oak_ref.destination_root = 'test_tmp'
     FileUtils.cp_r 'test/files', 'test_tmp'
     FileUtils.mv 'test_tmp/dot_gitignore', 'test_tmp/.gitignore'
   end
 
-  def clear_temp_file
-    FileUtils.rm_rf @test_tmp
+  def clear_temp_file(oak_ref)
+    FileUtils.rm_rf oak_ref.destination_root
   end
 end
