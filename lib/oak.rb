@@ -16,15 +16,19 @@ class Oak < Thor
     end
   end
 
+  desc "push", "Push deploy branch to remote origin master"
+  def push(remote_repo = 'origin', working_directory = '.')
+    FileUtils.chdir working_directory do
+      `push #{remote_repo} deploy:master`
+    end
+  end
+
   namespace :heroku do
     desc "setup", "Change database adapter, using cedar as the runtime stack"
     def setup
-
-    end
-
-    desc "push", "Merge master to deploy branch, and push deploy to heroku master"
-    def push
-
+      # add gem 'pg' in production environment
+      
+      # create heroku 
     end
   end
 
@@ -88,6 +92,7 @@ class Oak < Thor
 
     def git_prepare
       if File.exists? '.git'
+        puts 'It seems a git repository has already created, I\'ll leave it untouched.'
         return
       end
 

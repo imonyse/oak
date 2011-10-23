@@ -1,11 +1,13 @@
+**UNDER DEVELOPMENT...**
+
 ## oak
 
-Oak is a tool that helps making your **NEW** rails 3 application Open Source ready.
+Oak is a tool that helps making your **NEW** rails 3.1 application Open Source ready.
 It assumes you are using git as the version control system.
 
 **ONLY WORKS ON MAC OS X AND LINUX/BSD**
 
-When pushing your rails app to a public repository, it is often neccessary to find a way protecting you secret token and other private information. 
+When pushlishing your rails app to a public repository, it is often neccessary to find a way protecting you secret token and other private information. 
 
 Oak helps you on these tasks by running 
 
