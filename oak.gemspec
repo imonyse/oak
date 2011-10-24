@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Huang Wei}]
-  s.date = %q{2011-10-22}
+  s.date = %q{2011-10-24}
   s.description = %q{When pushing your rails app to a public repository, it is often neccessary to find a way protecting you secret token and other private information. Oak helps you on these tasks and assumes you use git as the version control system}
   s.email = %q{imonyse@gmail.com}
   s.executables = [%q{oak}]
