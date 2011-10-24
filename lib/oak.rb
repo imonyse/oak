@@ -64,7 +64,7 @@ class Oak < Thor
       File.open('config/config.example.yml', 'w') do |f|
         f.write "secret_token = 'c1cae0f52a3ef8efa369a127c63bd6ede539a4089fd952b33199100a6769c8455ab4969f2eefaf1ebcbe0208bd57531204c77f41f715207f961e7e45f139f4e7'"
       end
-      prepend_to_file 'config/application.rb', "require 'yaml'\nAPP_CONFIG = YAML.load(File.read(File.expand_path('../config.yml', __FILE__)))"
+      prepend_to_file 'config/application.rb', "require 'yaml'\nAPP_CONFIG = YAML.load(File.read(File.expand_path('../config.yml', __FILE__)))\n"
 
       # simply copy database.yml to database.example.yml
       File.open('config/database.example.yml', 'w') do |f|
