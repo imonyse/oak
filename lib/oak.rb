@@ -16,22 +16,6 @@ class Oak < Thor
     end
   end
 
-  desc "push", "Push deploy branch to remote origin master"
-  def push(remote_repo = 'origin', working_directory = '.')
-    FileUtils.chdir working_directory do
-      `push #{remote_repo} deploy:master`
-    end
-  end
-
-  namespace :heroku do
-    desc "setup", "Change database adapter, using cedar as the runtime stack"
-    def setup
-      # add gem 'pg' in production environment
-      
-      # create heroku 
-    end
-  end
-
   no_tasks do
 
     def check_cfg

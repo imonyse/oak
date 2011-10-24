@@ -1,9 +1,6 @@
-**UNDER DEVELOPMENT...**
-
 ## oak
 
-Oak is a tool that helps making your **NEW** rails 3.1 application Open Source ready.
-It assumes you are using git as the version control system.
+Oak is a very simple tool that assists making rails application Open Source ready.
 
 **ONLY WORKS ON MAC OS X AND LINUX/BSD**
 
@@ -16,7 +13,7 @@ Oak helps you on these tasks by running
 Then your private information will be stored in a file called 'config.yml', and automaticly ignored by git master branch. And on another branch named 'deploy' (which won't be pushed to the public repository) the config.yml file is included.
 So you can modify your apps on master branch as usual, and call
 
-    oak push <production_repo>
+    git push <production_repo> deploy:master
     
 to push your local deploy branch to your production repository's master branch.
 
