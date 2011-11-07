@@ -4,15 +4,15 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{oak}
-  s.version = "0.0.2"
+  s.name = "oak"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Huang Wei}]
-  s.date = %q{2011-10-24}
-  s.description = %q{When pushing your rails app to a public repository, it is often neccessary to find a way protecting you secret token and other private information. Oak helps you on these tasks and assumes you use git as the version control system}
-  s.email = %q{imonyse@gmail.com}
-  s.executables = [%q{oak}]
+  s.authors = ["Huang Wei"]
+  s.date = "2011-11-07"
+  s.description = "When pushing your rails app to a public repository, it is often neccessary to find a way protecting you secret token and other private information. Oak helps you on these tasks and assumes you use git as the version control system"
+  s.email = "imonyse@gmail.com"
+  s.executables = ["oak"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -35,11 +35,11 @@ Gem::Specification.new do |s|
     "test/helper.rb",
     "test/test_oak.rb"
   ]
-  s.homepage = %q{http://github.com/imonyse/oak}
-  s.licenses = [%q{MIT}]
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.6}
-  s.summary = %q{Oak is a tool that helps making your newly created rails app open source ready.}
+  s.homepage = "http://github.com/imonyse/oak"
+  s.licenses = ["MIT"]
+  s.require_paths = ["lib"]
+  s.rubygems_version = "1.8.10"
+  s.summary = "Oak is a tool that helps making your newly created rails app open source ready."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
